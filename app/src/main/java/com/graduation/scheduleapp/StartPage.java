@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import static android.app.PendingIntent.getActivity;
@@ -18,6 +18,8 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 // объявление используемых элементов
     EditText StartEdit;
     Button buSave,buLoad;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
                 loadText();
                 break;
             case R.id.buSave:
-                loadText();
+                textSave();
                 break;
             default:
                 break;
@@ -52,7 +54,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
     public void  textSave(){
         SharedPreferences SPreference = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = SPreference.edit();
-        editor.putString("User group" ,StartEdit.getText().toString());//здесь возможно тоже проблемка
+        editor.putString(getString(R.string.userName) ,StartEdit.getText().toString());//здесь возможно тоже проблемка
         editor.apply();
 
         Toast.makeText(this,"Saved", Toast.LENGTH_LONG).show();
@@ -61,7 +63,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 
     public void loadText(){
         SharedPreferences SPreference = getPreferences(MODE_PRIVATE);
-        String groupNumber = SPreference.getString("User group","");// здесь проблемка
+        String groupNumber = SPreference.getString(getString(R.string.userName),"");// здесь проблемка
         StartEdit.setText(groupNumber);
 
         Toast.makeText(this,"Loaded", Toast.LENGTH_LONG).show();
