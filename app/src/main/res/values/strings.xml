@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ScheduleApp</string>
     <string name="userName"></string>
+    <string name="show_activity">ShowWindow</string>
 </resources>
