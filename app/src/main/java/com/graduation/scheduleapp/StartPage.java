@@ -12,6 +12,8 @@ import android.widget.EditText;
 
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import static android.app.PendingIntent.getActivity;
 
 //наследование View.OnClickListener для прямой работы с интерфейсом, без создания объекта
@@ -38,9 +40,18 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        textSave();
-        intent = new Intent(StartPage.this, ShowPage.class);
+        textSave();//вызов метода сохранения текста при нажатии на кнопку
+        intent = new Intent (StartPage.this, ShowPage.class);/*Похоже, что сначала говорим, мол это
+        текущий класс описания, а после нажатия перейди в этот.*/
         startActivity(intent);
+        // Реализации перехода на новую активити
+      /*  ShowPage sp = new ShowPage();
+        try {
+            sp.getRequest();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     public void  textSave(){
@@ -49,7 +60,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         String value = startEdit.getText().toString();
         editor.putString(getString(R.string.userName), value);
         editor.apply();
-      //  Log.d("PREF", "value saving: " + value);
+        Log.d("PREF", "value saving: " + value);
 
         Toast.makeText(this,"Saved", Toast.LENGTH_LONG).show();
 
