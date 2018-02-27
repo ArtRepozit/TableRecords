@@ -72,7 +72,7 @@ public class ShowPage extends Activity implements View.OnClickListener{
         Toast.makeText(this,"Кнопка нажимается", Toast.LENGTH_LONG).show();
 
     }
-
+    // поток для вывода списка групп
 
     public void getRequestTread () throws IOException {
         new Thread(new Runnable() {
@@ -110,6 +110,21 @@ public class ShowPage extends Activity implements View.OnClickListener{
           }
         }
 
+
+    // возвращаем значение введённого пользвователем номера группы
+
+    public String saveGroupNumber(){
+        SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
+           String enGrNum = SPreference.getString(getString(R.string.userName),"");
+           return  enGrNum;
+    }
+
+
+
+
+
+    // Поток для вывода расписания
+
     public void getScheduleThread () throws IOException {
         new Thread(new Runnable() {
             public void run() {
@@ -120,18 +135,14 @@ public class ShowPage extends Activity implements View.OnClickListener{
 
     private  String getGroupSchedule(){
         try {
-            String  basicUrl, enterGroupNumber;
-            SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
-            enterGroupNumber = SPreference.getString(getString(R.string.userName),"");
-            Log.d("fall","num is = " + enterGroupNumber);
-
-
-           // Log.d("take num", " Entering string is " + enterGroupNumber);
-                basicUrl = "http://rasp.dmami.ru/site/group?group=" + enterGroupNumber;
+            String  basicUrl;
+            //Log.d("fall","num is = " + saveGroupNumber());
+            basicUrl = "http://rasp.dmami.ru/site/group?group=" + saveGroupNumber();
 
             String fullUrl = basicUrl;
             URL obj = new URL(fullUrl);
-            Log.d("Url", "final url string is " + fullUrl);
+            //Log.d("Url", "final url string is " + fullUrl);
+
             HttpURLConnection connection =(HttpURLConnection) obj.openConnection();
             connection.setRequestProperty("Referer", "http://rasp.dmami.ru/");
             connection.setRequestProperty("Accept-Charset", "UTF-8");
@@ -139,7 +150,7 @@ public class ShowPage extends Activity implements View.OnClickListener{
             InputStream response = connection.getInputStream();
             Scanner scanner = new Scanner(response).useDelimiter("\\A");
             final String s = scanner.hasNext()?scanner.next(): "";
-            Log.d("Schedule", "Answer is " +s);
+            //Log.d("Schedule", "Answer is " +s);
 
             handler.post(new Runnable() {
                 @Override
