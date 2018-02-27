@@ -1,13 +1,16 @@
 package com.graduation.scheduleapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,31 +25,56 @@ import java.util.Scanner;
 public class ShowPage extends Activity implements View.OnClickListener{
 
     TextView showGet;
-    Button buGet;
-
+    Button buGet, buShowSchedule;
+    EditText startEd;
     Handler handler;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_table);
+        startEd = (EditText) findViewById(R.id.startEdit);
         showGet = (TextView) findViewById(R.id.show_get);
         buGet = (Button) findViewById(R.id.bu_get);
             buGet.setOnClickListener(this);
 
+        buShowSchedule = (Button) findViewById(R.id.bu_show_schedule);
+            buShowSchedule.setOnClickListener(this);
+
         handler = new Handler();
     }
     public void onClick(View view) {
-        try {
-            getRequest();
-        } catch (IOException e) {
-            e.printStackTrace();
+        switch (view.getId()) {
+            case R.id.bu_get:
+                try {
+                    getRequestTread();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            case R.id.bu_show_schedule:
+                try {
+                    getScheduleThread();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
         }
+       /* String s1 = getString(R.string.userName);
+        Log.d("take num", " Entering string is " + s1);*/
+        //Context context = getApplicationContext();
+
+      //  SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.userName),MODE_PRIVATE);
+       // String groupNum = SharedPreferences.;
+      /*  SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
+        String groupNum = SPreference.getString(getString(R.string.userName),"");
+        Log.d("fall","num is = " + groupNum);
+*/
         Toast.makeText(this,"Кнопка нажимается", Toast.LENGTH_LONG).show();
+
     }
 
 
-    public void getRequest () throws IOException {
+    public void getRequestTread () throws IOException {
         new Thread(new Runnable() {
             public void run() {
                 final String str = getGroupList();
@@ -81,5 +109,52 @@ public class ShowPage extends Activity implements View.OnClickListener{
             return exp.toString();
           }
         }
+
+    public void getScheduleThread () throws IOException {
+        new Thread(new Runnable() {
+            public void run() {
+                final String str = getGroupSchedule();
+            }
+        }).start();
+    }
+
+    private  String getGroupSchedule(){
+        try {
+            String  basicUrl, enterGroupNumber;
+            SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
+            enterGroupNumber = SPreference.getString(getString(R.string.userName),"");
+            Log.d("fall","num is = " + enterGroupNumber);
+
+
+           // Log.d("take num", " Entering string is " + enterGroupNumber);
+                basicUrl = "http://rasp.dmami.ru/site/group?group=" + enterGroupNumber;
+
+            String fullUrl = basicUrl;
+            URL obj = new URL(fullUrl);
+            Log.d("Url", "final url string is " + fullUrl);
+            HttpURLConnection connection =(HttpURLConnection) obj.openConnection();
+            connection.setRequestProperty("Referer", "http://rasp.dmami.ru/");
+            connection.setRequestProperty("Accept-Charset", "UTF-8");
+
+            InputStream response = connection.getInputStream();
+            Scanner scanner = new Scanner(response).useDelimiter("\\A");
+            final String s = scanner.hasNext()?scanner.next(): "";
+            Log.d("Schedule", "Answer is " +s);
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(s);
+                }
+            });
+
+            return s;
+
+        }
+        catch (Exception exp){
+            return exp.toString();
+        }
+    }
+
 
 }

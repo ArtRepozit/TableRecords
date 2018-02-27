@@ -1,5 +1,6 @@
 package com.graduation.scheduleapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +23,9 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 
     // объявление используемых элементов
     EditText startEdit;
-    Button buSave,buLoad;
+    Button buSave;
     Intent intent;
+
 
 
     @Override
@@ -31,7 +33,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);// Привязка класса к layout
         // Создание экземпляров объекта представления и их захват
-        startEdit = (EditText) findViewById(R.id.StartEdit);
+        startEdit = (EditText) findViewById(R.id.startEdit);
         buSave =(Button) findViewById(R.id.buSave);
         //вызов обработчика нажатия на текущую(this) кнопку
             buSave.setOnClickListener(this);
@@ -40,22 +42,16 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        textSave();//вызов метода сохранения текста при нажатии на кнопку
+        //вызов метода сохранения текста при нажатии на кнопку
+        textSave();
+        // Реализации перехода на новую активити
         intent = new Intent (StartPage.this, ShowPage.class);/*Похоже, что сначала говорим, мол это
         текущий класс описания, а после нажатия перейди в этот.*/
         startActivity(intent);
-        // Реализации перехода на новую активити
-      /*  ShowPage sp = new ShowPage();
-        try {
-            sp.getRequest();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
     }
 
     public void  textSave(){
-        SharedPreferences SPreference = getPreferences(MODE_PRIVATE);
+        SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop),MODE_PRIVATE);
         SharedPreferences.Editor editor = SPreference.edit();
         String value = startEdit.getText().toString();
         editor.putString(getString(R.string.userName), value);
@@ -67,10 +63,10 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
     }
 
     public void loadText(){
-        SharedPreferences SPreference = getPreferences(MODE_PRIVATE);
+
+        SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
         String groupNumber = SPreference.getString(getString(R.string.userName),"");
         startEdit.setText(groupNumber);
-
         Toast.makeText(this,"Loaded", Toast.LENGTH_LONG).show();
     }
 
