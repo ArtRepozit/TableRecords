@@ -43,6 +43,8 @@ public class ShowPage extends Activity implements View.OnClickListener{
 
         handler = new Handler();
     }
+
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bu_get:
@@ -72,8 +74,8 @@ public class ShowPage extends Activity implements View.OnClickListener{
         Toast.makeText(this,"Кнопка нажимается", Toast.LENGTH_LONG).show();
 
     }
-    // поток для вывода списка групп
 
+    // поток для вывода списка групп
     public void getRequestTread () throws IOException {
         new Thread(new Runnable() {
             public void run() {
@@ -109,10 +111,9 @@ public class ShowPage extends Activity implements View.OnClickListener{
             return exp.toString();
           }
         }
-
+    //конец метода повыводящего список групп
 
     // возвращаем значение введённого пользвователем номера группы
-
     public String saveGroupNumber(){
         SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
            String enGrNum = SPreference.getString(getString(R.string.userName),"");
@@ -120,11 +121,7 @@ public class ShowPage extends Activity implements View.OnClickListener{
     }
 
 
-
-
-
     // Поток для вывода расписания
-
     public void getScheduleThread () throws IOException {
         new Thread(new Runnable() {
             public void run() {
@@ -166,6 +163,6 @@ public class ShowPage extends Activity implements View.OnClickListener{
             return exp.toString();
         }
     }
-
+    //конец метода повыводящего расписание
 
 }

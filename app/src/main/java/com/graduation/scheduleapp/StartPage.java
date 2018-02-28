@@ -1,7 +1,7 @@
 package com.graduation.scheduleapp;
 
 import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -25,8 +25,6 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
     EditText startEdit;
     Button buSave;
     Intent intent;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

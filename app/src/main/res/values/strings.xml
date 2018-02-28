@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">ScheduleApp</string>
-    <string name="userName">user</string>
-
-    <string name="key_shop"></string>
-
     <string name="show_activity">ShowWindow</string>
+    <string name="gson_data_parse">ShowWindow</string>
+
+
+
+    <string name="userName">user</string>
+    <string name="key_shop"></string>
 </resources>

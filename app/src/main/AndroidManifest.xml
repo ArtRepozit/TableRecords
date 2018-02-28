@@ -23,6 +23,7 @@
         <activity
             android:name=".ShowPage"
             android:label="@string/show_activity"
+            android:label_two ="@string/gson_data_parse"
             ></activity>
     </application>
 
