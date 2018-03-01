@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.graduation.scheduleapp.json.ParseGson;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -162,12 +163,13 @@ public class ShowPage extends Activity implements View.OnClickListener{
             Log.d("Schedule", "Answer is " +s);
 
             //final DataParse dt = GSON.fromJson(s,DataParse.class);
-
+            final Gson gSON = new GsonBuilder().setPrettyPrinting().create();
+            final ParseGson parseGson = gSON.fromJson(s, ParseGson.class);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                //     ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText((CharSequence) dt.getOne());
-                  ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(s);
+                  ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(parseGson.toString());
 
 
                 }
@@ -181,24 +183,5 @@ public class ShowPage extends Activity implements View.OnClickListener{
         }
     }
     //конец метода выводящего расписание
-    String q = getGroupSchedule();
 
-
-
-
-
-   /* public static clas0s LessonInfo {
-
-        private String subject;
-        @SerializedName("teacher") //
-        private String teacherName;
-        @SerializedName("date_from")
-        private String dateOfLessonStart;
-        @SerializedName("date_to")
-        private String dateOfLessonEnd;
-        private String auditories;
-        private String type ;
-
-    }
-    */
 }
