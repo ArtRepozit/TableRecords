@@ -14,11 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -35,10 +41,10 @@ public class ShowPage extends Activity implements View.OnClickListener{
         setContentView(R.layout.show_table);
         startEd = (EditText) findViewById(R.id.startEdit);
         showGet = (TextView) findViewById(R.id.show_get);
-        buGet = (Button) findViewById(R.id.bu_get);
+        buGet = (Button) findViewById(R.id.bu_get_group_list);
             buGet.setOnClickListener(this);
 
-        buShowSchedule = (Button) findViewById(R.id.bu_show_schedule);
+        buShowSchedule = (Button) findViewById(R.id.bu_show_schedule_unformat);
             buShowSchedule.setOnClickListener(this);
 
         handler = new Handler();
@@ -47,19 +53,22 @@ public class ShowPage extends Activity implements View.OnClickListener{
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.bu_get:
+            case R.id.bu_get_group_list:
                 try {
                     getRequestTread();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            case R.id.bu_show_schedule:
+                    break;
+            case R.id.bu_show_schedule_unformat:
                 try {
                     getScheduleThread();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+                    break;
+            default:
+                    break;
         }
        /* String s1 = getString(R.string.userName);
         Log.d("take num", " Entering string is " + s1);*/
@@ -120,6 +129,9 @@ public class ShowPage extends Activity implements View.OnClickListener{
            return  enGrNum;
     }
 
+// gson practic
+
+//    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     // Поток для вывода расписания
     public void getScheduleThread () throws IOException {
@@ -147,12 +159,17 @@ public class ShowPage extends Activity implements View.OnClickListener{
             InputStream response = connection.getInputStream();
             Scanner scanner = new Scanner(response).useDelimiter("\\A");
             final String s = scanner.hasNext()?scanner.next(): "";
-            //Log.d("Schedule", "Answer is " +s);
+            Log.d("Schedule", "Answer is " +s);
+
+            //final DataParse dt = GSON.fromJson(s,DataParse.class);
 
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(s);
+               //     ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText((CharSequence) dt.getOne());
+                  ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(s);
+
+
                 }
             });
 
@@ -163,6 +180,25 @@ public class ShowPage extends Activity implements View.OnClickListener{
             return exp.toString();
         }
     }
-    //конец метода повыводящего расписание
+    //конец метода выводящего расписание
+    String q = getGroupSchedule();
 
+
+
+
+
+   /* public static clas0s LessonInfo {
+
+        private String subject;
+        @SerializedName("teacher") //
+        private String teacherName;
+        @SerializedName("date_from")
+        private String dateOfLessonStart;
+        @SerializedName("date_to")
+        private String dateOfLessonEnd;
+        private String auditories;
+        private String type ;
+
+    }
+    */
 }

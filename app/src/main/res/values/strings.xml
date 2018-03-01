@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ScheduleApp</string>
     <string name="show_activity">ShowWindow</string>
-    <string name="gson_data_parse">ShowWindow</string>
+
 
 
 
