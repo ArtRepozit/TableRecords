@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Auditoria {
     @SerializedName("title")
-    String title;
+    public String title;
     @SerializedName("color")
-    String color;
+    public String color;
 }

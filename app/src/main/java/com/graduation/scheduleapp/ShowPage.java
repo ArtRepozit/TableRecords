@@ -219,8 +219,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
         ;
         List<SubjectDescription> list = new ArrayList<>();
         for (Map.Entry<String, Map<String, List<LessonInfo>>> entryToDay : parseGson.grid.entrySet()) {
-            //SubjectDescription subjectDescription = new SubjectDescription();
-            //subjectDescription.dayOfWeek = ;
+
             String dayOfWeek = "Неизвестный день недели";
             if (entryToDay.getKey().equals("1")) {
                 dayOfWeek = "Понедельник";
@@ -238,7 +237,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
 
             for (Map.Entry<String, List<LessonInfo>> enrtyToLessons : entryToDay.getValue().entrySet()) {
-                String timeOfLesson ="00:00 - 00:00";
+                String timeOfLesson = "00:00 - 00:00";
 
                 if (enrtyToLessons.getKey().equals("1")) {
                     timeOfLesson = "9:00 - 10:30";
@@ -261,12 +260,10 @@ public class ShowPage extends Activity implements View.OnClickListener {
                     subjectDescription.dayOfWeek = dayOfWeek;
                     subjectDescription.lessonName = lessonInfo.subject;
                     subjectDescription.lessonTime = timeOfLesson;
-                    //for(Auditoria auditoria : enrtyToAuditoria.getValue()) {
-                    //subjectDescription.classRoom =Auditoria.class.cast(0);
-
+                    subjectDescription.classRoom= lessonInfo.auditories.get(0).title;
                     subjectDescription.teacherName = lessonInfo.teacherName;
                     subjectDescription.lessonLength = lessonInfo.dateOfLessonStart + "  -  " + lessonInfo.dateOfLessonEnd;
-                    subjectDescription.lessonType = lessonInfo.type ;
+                    subjectDescription.lessonType = lessonInfo.type;
                     Log.d("LN", "lesson name is " + subjectDescription.lessonName);
                     list.add(subjectDescription);
                 }

@@ -11,7 +11,8 @@ import java.util.List;
 public class SubjectDescription {
     public String dayOfWeek;
     public String lessonTime;
-    public Auditoria classRoom;
+    //public Auditoria classRoom;
+    public String  classRoom;
     public String lessonName;
     public String teacherName;
     public String lessonLength;
