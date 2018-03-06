@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ParseGson {
     @SerializedName("grid")
-    Map<String,Map<String, List<LessonInfo>>> grid;
+    public Map<String,Map<String, List<LessonInfo>>> grid;
 
 }
 

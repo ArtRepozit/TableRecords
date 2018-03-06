@@ -3,8 +3,7 @@
     <string name="show_activity">ShowWindow</string>
 
 
-
-
     <string name="userName">user</string>
     <string name="key_shop"></string>
+    <string name="title_activity_schedule_modul">ScheduleModul</string>
 </resources>
