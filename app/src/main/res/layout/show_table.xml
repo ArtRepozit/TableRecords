@@ -41,19 +41,13 @@
         app:layout_constraintTop_toTopOf="@+id/bu_get_group_list"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/show_get"
-        android:layout_width="58dp"
-        android:layout_height="508dp"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/bu_next_activity"
-        tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints" />
 
-
-    <!--  <ListView
-          android:id = "@+id/list_view"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          /> -->
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="418dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bu_next_activity" />
 </android.support.constraint.ConstraintLayout>

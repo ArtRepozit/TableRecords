@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.graduation.scheduleapp.DescriptionOfDay.SubjectDescription;
 import com.graduation.scheduleapp.DescriptionOfDay.ListDay;
-import com.graduation.scheduleapp.json.Auditoria;
 import com.graduation.scheduleapp.json.LessonInfo;
 import com.graduation.scheduleapp.json.ParseGson;
 
@@ -41,8 +40,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
     EditText startEd;
     Handler handler;
     ListView listView;
-    ListDay listDaty;
-
+   // ArrayList<SubjectDescription> lesson = new ArrayList<SubjectDescription>();
+    AdapterActivity adapterActivity;
     Intent intent;
 
     @Override
@@ -50,7 +49,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_table);
         startEd = (EditText) findViewById(R.id.startEdit);
-        showGet = (TextView) findViewById(R.id.show_get);
+        //showGet = (TextView) findViewById(R.id.show_get);
 
         buGet = (Button) findViewById(R.id.bu_get_group_list);
         buGet.setOnClickListener(this);
@@ -182,8 +181,30 @@ public class ShowPage extends Activity implements View.OnClickListener {
             Log.d("Schedule", "Answer is " + s);
 
             final ParseGson parseGson = gSON.fromJson(s, ParseGson.class);
-            List<SubjectDescription> subjectDescriptions = getInfo(parseGson);
-         /*
+            final List<SubjectDescription> subjectDescriptions = getInfo(parseGson);
+
+
+
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //     ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText((CharSequence) dt.getOne());
+                    // ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(parseGson.toString());
+                    listView = (ListView) findViewById(R.id.list_view);
+                    adapterActivity = new AdapterActivity(ShowPage.this, subjectDescriptions);
+                    listView.setAdapter(adapterActivity);
+
+
+                }
+            });
+
+
+
+
+
+
+            /*
 
            у меня в объекте лежит структура данных в виде LinkedTreeMap которая получилась после парсинга JSON файла,
             нужен метод который будет по ключу вытаскивать значение из этого объета используя заготовленный шабло в виде класса
@@ -192,19 +213,20 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
         */
 
-
+/*
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     //     ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText((CharSequence) dt.getOne());
                     // ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(parseGson.toString());
-                    ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(parseGson.toString());
+                    ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(subjectDescriptions.toString());
 
 
                 }
-            });
+            });*/
 
-            return parseGson.toString();
+
+            return subjectDescriptions.toString();
 
         } catch (Exception exp) {
             return exp.toString();
@@ -215,8 +237,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
     //
     private List<SubjectDescription> getInfo(ParseGson parseGson) {
-        // Map<String,Map<String, List<LessonInfo>>> grid;
-        ;
+
         List<SubjectDescription> list = new ArrayList<>();
         for (Map.Entry<String, Map<String, List<LessonInfo>>> entryToDay : parseGson.grid.entrySet()) {
 
@@ -273,17 +294,15 @@ public class ShowPage extends Activity implements View.OnClickListener {
         return list;
     }
 
-    public void makeDayList() {
-        final List<String> list = new ArrayList<String>();
+    public void DayViewList() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-
-        listView.setAdapter(adapter);
+        listView = (ListView) this.findViewById(R.id.list_view);
+        //listView.setAdapter(new AdapterActivity(this,  ));
 
     }
 
     public void goToNextPage() {
-        intent = new Intent(ShowPage.this, ScheduleModul.class);
+        intent = new Intent(ShowPage.this, AdapterActivity.class);
         startActivity(intent);
     }
 }
