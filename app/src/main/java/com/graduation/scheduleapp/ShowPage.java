@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +16,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.graduation.scheduleapp.DescriptionOfDay.SubjectDescription;
-import com.graduation.scheduleapp.DescriptionOfDay.ListDay;
 import com.graduation.scheduleapp.json.LessonInfo;
 import com.graduation.scheduleapp.json.ParseGson;
+import com.graduation.scheduleapp.jsonForGiveGrupList.ParseGroupList;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,8 +56,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
         buShowSchedule = (Button) findViewById(R.id.bu_show_schedule_unformat);
         buShowSchedule.setOnClickListener(this);
 
-        buNextActivity = (Button) findViewById(R.id.bu_next_activity);
-        buNextActivity.setOnClickListener(this);
+       // buNextActivity = (Button) findViewById(R.id.bu_next_activity);
+        //buNextActivity.setOnClickListener(this);
 
         // listView = (ListView) findViewById(R.id.list_view);
 
@@ -83,10 +82,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 break;
-            case R.id.bu_next_activity:
-                //goToNextPage();
-                getInfo(new ParseGson());
-                break;
+
+
             default:
                 break;
         }
@@ -103,6 +100,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
         Toast.makeText(this, "Кнопка нажимается", Toast.LENGTH_LONG).show();
 
     }
+
+    final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // поток для вывода списка групп
     public void getRequestTread() throws IOException {
@@ -126,6 +125,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
             final String s = scanner.hasNext() ? scanner.next() : "";
             Log.d("String", "GetAnswer is " + s);
 
+            final ParseGroupList groupList  = gson.fromJson(s, ParseGroupList.class);
+            Log.d("groupList", "Groups is + " + groupList);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -207,7 +208,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
             /*
 
            у меня в объекте лежит структура данных в виде LinkedTreeMap которая получилась после парсинга JSON файла,
-            нужен метод который будет по ключу вытаскивать значение из этого объета используя заготовленный шабло в виде класса
+            нужен метод который будет по ключу вытаскивать значение из этого объета используя заготовленный шаблон в виде класса
             он должен куда-то это значение класть
 
 
@@ -215,7 +216,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
 /*
             handler.post(new Runnable() {
-                @Override
+              @Override
                 public void run() {
                     //     ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText((CharSequence) dt.getOne());
                     // ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(parseGson.toString());
@@ -237,6 +238,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
     //
     private List<SubjectDescription> getInfo(ParseGson parseGson) {
+
+        String lastDay = "";
 
         List<SubjectDescription> list = new ArrayList<>();
         for (Map.Entry<String, Map<String, List<LessonInfo>>> entryToDay : parseGson.grid.entrySet()) {
@@ -278,7 +281,13 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
                 for (LessonInfo lessonInfo : enrtyToLessons.getValue()) {
                     SubjectDescription subjectDescription = new SubjectDescription();
-                    subjectDescription.dayOfWeek = dayOfWeek;
+
+
+                    if (!lastDay.equals(dayOfWeek)) {
+                        subjectDescription.dayOfWeek = dayOfWeek;
+                        lastDay = dayOfWeek;
+                    }
+
                     subjectDescription.lessonName = lessonInfo.subject;
                     subjectDescription.lessonTime = timeOfLesson;
                     subjectDescription.classRoom= lessonInfo.auditories.get(0).title;
@@ -292,13 +301,6 @@ public class ShowPage extends Activity implements View.OnClickListener {
         }
 
         return list;
-    }
-
-    public void DayViewList() {
-
-        listView = (ListView) this.findViewById(R.id.list_view);
-        //listView.setAdapter(new AdapterActivity(this,  ));
-
     }
 
     public void goToNextPage() {

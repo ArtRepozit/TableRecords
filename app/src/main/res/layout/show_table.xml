@@ -9,11 +9,10 @@
         android:id="@+id/bu_get_group_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="8dp"
+        android:text="Группы"
+        app:layout_constraintEnd_toStartOf="@+id/bu_show_schedule_unformat"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/bu_show_schedule_unformat"
@@ -22,32 +21,16 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Button"
+        android:text="Расписание"
         app:layout_constraintBottom_toBottomOf="@+id/bu_get_group_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bu_get_group_list" />
 
-    <Button
-        android:id="@+id/bu_next_activity"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/bu_get_group_list"
-        app:layout_constraintEnd_toStartOf="@+id/bu_show_schedule_unformat"
-        app:layout_constraintStart_toEndOf="@+id/bu_get_group_list"
-        app:layout_constraintTop_toTopOf="@+id/bu_get_group_list"
-        app:layout_constraintVertical_bias="1.0" />
 
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="418dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bu_next_activity" />
+        android:layout_height="match_parent"
+        />
 </android.support.constraint.ConstraintLayout>
