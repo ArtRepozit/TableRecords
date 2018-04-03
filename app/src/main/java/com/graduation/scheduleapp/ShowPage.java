@@ -35,7 +35,9 @@ import static android.media.CamcorderProfile.get;
 public class ShowPage extends Activity implements View.OnClickListener {
 
     TextView showGet;
-    Button buGet, buShowSchedule, buNextActivity;
+    Button buGet;
+    Button buShowSchedule;
+    Button buHSP;
     EditText startEd;
     Handler handler;
     ListView listView;
@@ -56,8 +58,8 @@ public class ShowPage extends Activity implements View.OnClickListener {
         buShowSchedule = (Button) findViewById(R.id.bu_show_schedule_unformat);
         buShowSchedule.setOnClickListener(this);
 
-       // buNextActivity = (Button) findViewById(R.id.bu_next_activity);
-        //buNextActivity.setOnClickListener(this);
+        buHSP = (Button) findViewById(R.id.bu_show_HSP);
+        buHSP.setOnClickListener(this);
 
         // listView = (ListView) findViewById(R.id.list_view);
 
@@ -67,6 +69,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
 
 
     public void onClick(View view) {
+     // в блоке try мы запускаем поток(thread)  в
         switch (view.getId()) {
             case R.id.bu_get_group_list:
                 try {
@@ -78,6 +81,13 @@ public class ShowPage extends Activity implements View.OnClickListener {
             case R.id.bu_show_schedule_unformat:
                 try {
                     getScheduleThread();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.bu_show_HSP:
+                try {
+                    startSecondThread();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -149,11 +159,11 @@ public class ShowPage extends Activity implements View.OnClickListener {
         return enGrNum;
     }
 
-// gson practic
+//  объект класса Gson для работы с библиотекой gson
 
     final Gson gSON = new GsonBuilder().setPrettyPrinting().create();
 
-    // Поток для вывода расписания
+    // Поток для вывода расписания для всех групп
     private void getScheduleThread() throws IOException {
         new Thread(new Runnable() {
             public void run() {
@@ -236,7 +246,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
     //конец метода выводящего расписание
 
 
-    //
+    // Получаем информацию из SubjectDescription
     private List<SubjectDescription> getInfo(ParseGson parseGson) {
 
         String lastDay = "";
@@ -303,6 +313,59 @@ public class ShowPage extends Activity implements View.OnClickListener {
         return list;
     }
 
+
+    // Поток для вывода расписания ВШП
+    private void startSecondThread() throws IOException {
+        new Thread(new Runnable() {
+            public void run() {
+                final String str = getGroupScheduleVSP();
+            }
+        }).start();
+    }
+
+    public String getGroupScheduleVSP() {
+        try {
+            String basicUrl;
+            //Log.d("fall","num is = " + saveGroupNumber());
+            basicUrl = "http://st-rasp.dmami.ru/site/group?group=" + saveGroupNumber();
+
+            String fullUrlVSP = basicUrl;
+            URL obj = new URL(fullUrlVSP);
+            //Log.d("Url", "final url string is " + fullUrl);
+
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestProperty("Referer", "http://st-rasp.dmami.ru/");
+            connection.setRequestProperty("Accept-Charset", "UTF-8");
+
+            InputStream response = connection.getInputStream();
+            Scanner scanner = new Scanner(response).useDelimiter("\\A");
+            final String s = scanner.hasNext() ? scanner.next() : "";
+            Log.d("Schedule", "Answer is " + s);
+
+            final ParseGson parseGson = gSON.fromJson(s, ParseGson.class);
+            final List<SubjectDescription> subjectDescriptions = getInfo(parseGson);
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //     ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText((CharSequence) dt.getOne());
+                    // ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(parseGson.toString());
+                    listView = (ListView) findViewById(R.id.list_view);
+                    adapterActivity = new AdapterActivity(ShowPage.this, subjectDescriptions);
+                    listView.setAdapter(adapterActivity);
+
+
+                }
+            });
+
+            return subjectDescriptions.toString();
+
+
+
+        } catch (Exception exp) {
+            return exp.toString();
+        }
+    }
     public void goToNextPage() {
         intent = new Intent(ShowPage.this, AdapterActivity.class);
         startActivity(intent);

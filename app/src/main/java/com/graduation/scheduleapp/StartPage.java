@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +15,15 @@ import android.widget.EditText;
 
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.graduation.scheduleapp.jsonForGiveGrupList.ParseGroupList;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -26,8 +35,9 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
     EditText startEdit;
     Button buSave;
     Intent intent;
-
-
+//   для парсинга даных
+    final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +48,14 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         //вызов обработчика нажатия на текущую(this) кнопку
         buSave.setOnClickListener(this);
         loadText();
+      /*  try {
 
+            getRequestTread();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+*/
 
     }
 
@@ -84,4 +101,44 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         textSave();
     }
 
+/*
+    // поток для вывода списка групп
+    public void getRequestTread() throws IOException {
+        new Thread(new Runnable() {
+            public void run() {
+                final ParseGroupList groupList = getGroupList();
+            }
+        }).start();
+    }
+
+    private ParseGroupList getGroupList() {
+        try {
+            String str1 = "http://rasp.dmami.ru/groups-list.json?c107ba4058ced46cd4bb87fffdb70474";
+            URL obj = new URL(str1);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestProperty("Referer", "http://rasp.dmami.ru/");
+            connection.setRequestProperty("Accept-Charset", "UTF-8");
+
+            InputStream response = connection.getInputStream();
+            Scanner scanner = new Scanner(response).useDelimiter("\\A");
+            final String s = scanner.hasNext() ? scanner.next() : "";
+            Log.d("String", "GetAnswer is " + s);
+
+            final ParseGroupList groupList  = gson.fromJson(s, ParseGroupList.class);
+            Log.d("groupList", "Groups is + " + groupList);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //             ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(s);
+                }
+            });
+            return groupList;
+            //eturn groupList.toString();
+
+        } catch (Exception exp) {
+            Toast.makeText(this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
+            //return exp.toString();
+        }
+        return null;
+    }*/
 }

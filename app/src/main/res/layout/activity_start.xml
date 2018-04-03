@@ -18,20 +18,21 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:cursorVisible="false"
         android:ellipsize="middle"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
-        android:inputType="text|textWebEmailAddress"
+        android:inputType="text"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textIsSelectable="false"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
-        />
+        app:layout_constraintVertical_bias="0.4" />
 
     <Button
         android:id="@+id/buSave"

@@ -69,7 +69,7 @@ public class AdapterActivity extends BaseAdapter {
         }
         lessonTime.setText(lesson.get(i).lessonTime);
         classRoom.setText("Аудитория\n" + lesson.get(i).classRoom);
-        lessonName.setText(lesson.get(i).lessonName);
+        lessonName.setText("Предмет\n" + lesson.get(i).lessonName);
         teacherName.setText(lesson.get(i).teacherName);
         lessonLength.setText(lesson.get(i).lessonLength);
         lessonType.setText(lesson.get(i).lessonType);

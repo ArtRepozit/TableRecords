@@ -11,5 +11,9 @@ import java.util.Map;
 
 public class ParseGroupList {
     @SerializedName("groups")
-    List<String>groups;
+    List<String> groups;
+
+    public int getListSize() {
+        return groups.size();
+    }
 }

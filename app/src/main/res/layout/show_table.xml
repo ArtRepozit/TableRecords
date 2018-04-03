@@ -6,13 +6,21 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/bu_show_HSP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="ВШП"
+        app:layout_constraintEnd_toStartOf="@+id/bu_get_group_list" />
+
+    <Button
         android:id="@+id/bu_get_group_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="Группы"
         app:layout_constraintEnd_toStartOf="@+id/bu_show_schedule_unformat"
-        tools:layout_editor_absoluteY="0dp" />
+         />
 
     <Button
         android:id="@+id/bu_show_schedule_unformat"
@@ -27,10 +35,13 @@
         app:layout_constraintTop_toTopOf="@+id/bu_get_group_list" />
 
 
-
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/bu_get_group_list">
+
+    </ListView>
+
 </android.support.constraint.ConstraintLayout>
