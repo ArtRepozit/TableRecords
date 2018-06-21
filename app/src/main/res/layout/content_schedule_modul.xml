@@ -29,32 +29,44 @@
     <TextView
         android:id="@+id/text_lessonTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDark"
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/text_classRoom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDark"
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/text_lessonName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDark"
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/text_teacherName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDark"
+        android:textSize="15dp"/>
 
 
     <TextView
         android:id="@+id/text_lessonType"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDark"
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/text_lessonLength"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDark"
+        android:textSize="15dp"/>
 
 </LinearLayout>

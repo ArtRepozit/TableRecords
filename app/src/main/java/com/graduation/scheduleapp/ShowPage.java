@@ -70,7 +70,7 @@ public class ShowPage extends Activity implements View.OnClickListener {
         buHSP = (Button) findViewById(R.id.bu_show_HSP);
         buHSP.setOnClickListener(this);
 
-        // listView = (ListView) findViewById(R.id.list_view);
+        //listView = (ListView) findViewById(R.id.list_view);
 
         inference = new Inference();
         handler = new Handler();
