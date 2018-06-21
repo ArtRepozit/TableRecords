@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-
+    android:background="@drawable/polikek"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.graduation.scheduleapp.StartPage"
@@ -23,7 +22,7 @@
         android:ellipsize="middle"
         android:focusableInTouchMode="true"
         android:gravity="center_vertical"
-        android:inputType="text"
+        android:inputType="text|textPersonName|textFilter"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textIsSelectable="false"
@@ -32,19 +31,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.4"
+        android:background="@drawable/edit_text_style"/>
 
     <Button
         android:id="@+id/buSave"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="38dp"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="128dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Сохранить"
+        android:background="@drawable/buttom_new_style"
+        android:text="Далее"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"/>
 
 </android.support.constraint.ConstraintLayout>

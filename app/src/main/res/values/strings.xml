@@ -5,5 +5,17 @@
 
     <string name="userName">user</string>
     <string name="key_shop"></string>
-    <string name="title_activity_schedule_modul">ScheduleModul</string>
+
+    <string name="key_shop_for_first_address"></string>
+    <string name="key_shop_for_second_address"></string>
+
+
+    <string name="first_address"></string>
+    <string name="first_address_printing_shcool"></string>
+
+    <string name="second_address_for_lessons"></string>
+    <string name="second_address_for_session"></string>
+
+    <string name="threed_address"></string>
+    <string name="title_activity_schedule_modul">Расписание Московский Политех</string>
 </resources>

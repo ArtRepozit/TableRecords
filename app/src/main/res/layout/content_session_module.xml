@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@android:drawable/spinner_background"
+    android:orientation="vertical"
+    android:padding="@android:dimen/app_icon_size"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.graduation.scheduleapp.AdapterForSession">
+
+    <TextView
+        android:id="@+id/for_empty"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="middle"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        />
+
+    <TextView
+        android:id="@+id/text_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_teacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_auditories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

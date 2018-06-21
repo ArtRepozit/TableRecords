@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fon_two">
 
     <Button
         android:id="@+id/bu_show_HSP"
@@ -11,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="ВШП"
-        app:layout_constraintEnd_toStartOf="@+id/bu_get_group_list" />
+        app:layout_constraintEnd_toStartOf="@+id/bu_get_group_list"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/bu_get_group_list"
@@ -20,7 +22,7 @@
         android:layout_marginEnd="8dp"
         android:text="Группы"
         app:layout_constraintEnd_toStartOf="@+id/bu_show_schedule_unformat"
-         />
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/bu_show_schedule_unformat"
@@ -32,7 +34,8 @@
         android:text="Расписание"
         app:layout_constraintBottom_toBottomOf="@+id/bu_get_group_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bu_get_group_list" />
+        app:layout_constraintTop_toTopOf="@+id/bu_get_group_list"
+        android:visibility="gone"/>
 
 
     <ListView

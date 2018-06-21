@@ -7,27 +7,39 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Расписание Московский Политех"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StartPage">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".ShowPage"
+            android:label="@string/show_activity" />
+        <!--
+        <activity
+            android:name=".ScheduleModul"
+            android:label="@string/title_activity_schedule_modul"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".inference" />
+        -->
+
+        <activity android:name=".FirstScreenAfterStartApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ShowPage"
-            android:label="@string/show_activity" />
-
-        <activity
-            android:name=".ScheduleModul"
-            android:label="@string/title_activity_schedule_modul"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+        <activity android:name=".SecondScreenAfterStartApp"></activity>
     </application>
 
 </manifest>

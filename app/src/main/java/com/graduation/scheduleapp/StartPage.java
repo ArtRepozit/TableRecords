@@ -77,7 +77,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         editor.apply();
         Log.d("PREF", "value saving: " + value);
 
-        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
     }
 
@@ -86,7 +86,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         SharedPreferences SPreference = getSharedPreferences(getString(R.string.key_shop), Activity.MODE_PRIVATE);
         String groupNumber = SPreference.getString(getString(R.string.userName), "");
         startEdit.setText(groupNumber);
-        Toast.makeText(this, "Loaded", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "Loaded", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -101,17 +101,17 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         textSave();
     }
 
-/*
-    // поток для вывода списка групп
-    public void getRequestTread() throws IOException {
+
+    // поток для вывода списка групп всех форма обучения
+ /*   public void getListTread() throws IOException {
         new Thread(new Runnable() {
             public void run() {
-                final ParseGroupList groupList = getGroupList();
+                final String str = getGroupList();
             }
         }).start();
     }
 
-    private ParseGroupList getGroupList() {
+    private String getGroupList() {
         try {
             String str1 = "http://rasp.dmami.ru/groups-list.json?c107ba4058ced46cd4bb87fffdb70474";
             URL obj = new URL(str1);
@@ -126,19 +126,19 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 
             final ParseGroupList groupList  = gson.fromJson(s, ParseGroupList.class);
             Log.d("groupList", "Groups is + " + groupList);
-            handler.post(new Runnable() {
+           /* handler.post(new Runnable() {
                 @Override
                 public void run() {
                     //             ((TextView) ShowPage.this.findViewById(R.id.show_get)).setText(s);
                 }
             });
-            return groupList;
-            //eturn groupList.toString();
+            * / //
+            return s;
 
         } catch (Exception exp) {
-            Toast.makeText(this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
-            //return exp.toString();
+            return exp.toString();
         }
-        return null;
-    }*/
+    }
+    */
+
 }
